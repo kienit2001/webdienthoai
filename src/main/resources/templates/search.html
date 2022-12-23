@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: page_head('Home - Shopwise Website', 'none')" />
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/search.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+
+</head>
+<body>
+<div th:replace="fragments/navbar_fragment :: navbar"></div>
+<div class="main-content">
+    <div class="search-main">
+        <div class="search-content d-flex align-items-start">
+            <div class="search-form d-flex flex-column">
+                <div class="search-form-card">
+                    <form th:action="@{'/search/page/1'}" id="form-filter-sort">
+                        <div class="form-group">
+                            <div class="form-group-title font-weight-bold">Thể loại</div>
+                            <div class="radio-list d-flex flex-column" style="gap: 0.75rem">
+                                <th:block th:if="${keywordSearch != null}">
+                                    <input type="hidden" th:value="${keywordSearch}" name="keywordSearch">
+                                </th:block>
+                                <div class="custom-control">
+                                    <input type="radio" class="custom-control-input custom-control-input-radio" name="radio-category" th:checked="${radioCategory=='all' ? 'checked' : 'false'}" value="all" id="radio-0" >
+                                    <label class="d-flex align-items-center custom-control-label-radio custom-control-label" for="radio-0">
+                                        <span>Tất cả</span>
+                                    </label>
+                                </div>
+                                <th:block th:each="cat : ${listCategories}">
+                                    <div class="custom-control">
+                                        <input type="radio" class="custom-control-input custom-control-input-radio" th:checked="${radioCategory == #strings.toString(cat.id) ? 'checked' : 'false'}" name="radio-category" th:value="${cat.id}" th:id="${'rad-cat-' + cat.id}" >
+                                        <label class="d-flex align-items-center custom-control-label-radio custom-control-label" th:for="${'rad-cat-' + cat.id}">
+                                            <span th:text="${cat.name}"></span>
+                                        </label>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group-title font-weight-bold">Thương hiệu</div>
+                            <div class="radio-list d-flex flex-column" style="gap: 0.75rem">
+                                <div class="custom-control">
+                                    <input type="radio" class="custom-control-input custom-control-input-radio" name="radio-brand" th:checked="${radioBrand=='all' ? 'checked' : 'false'}" value="all" id="brand-0" >
+                                    <label class="d-flex align-items-center custom-control-label-radio custom-control-label" for="brand-0">
+                                        <span>Tất cả</span>
+                                    </label>
+                                </div>
+                                <th:block th:each="brand : ${listBrands}">
+                                    <div class="custom-control">
+                                        <input type="radio" class="custom-control-input custom-control-input-radio" name="radio-brand" th:checked="${radioBrand == #strings.toString(brand.id) ? 'checked' : 'false'}" th:value="${brand.id}" th:id="${'rad-bra-' + brand.id}" >
+                                        <label class="d-flex align-items-center custom-control-label-radio custom-control-label" th:for="${'rad-bra-' + brand.id}">
+                                            <span th:text="${brand.name}"></span>
+                                        </label>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group-title font-weight-bold">Giá</div>
+                            <div class="radio-list d-flex flex-column" style="gap: 0.75rem">
+                                <div class="custom-control">
+                                    <input type="radio" class="custom-control-input custom-control-input-radio" name="radio-price" checked="checked" value="all" id="price-0" >
+                                    <label class="d-flex align-items-center custom-control-label-radio custom-control-label" for="price-0">
+                                        <span>Tất cả</span>
+                                    </label>
+                                </div>
+                                <div class="custom-control">
+                                    <input type="radio" class="custom-control-input custom-control-input-radio" name="radio-price" th:checked="${radioPrice=='from0to1' ? 'checked' : 'false'}" value="from0to1" id="price-1" >
+                                    <label class="d-flex align-items-center custom-control-label-radio custom-control-label" for="price-1">
+                                        <span>Dưới 1 triệu</span>
+                                    </label>
+                                </div>
+                                <div class="custom-control">
+                                    <input type="radio" class="custom-control-input custom-control-input-radio" name="radio-price"  th:checked="${radioPrice=='from1to2' ? 'checked' : 'false'}"  value="from1to2" id="price-2" >
+                                    <label class="d-flex align-items-center custom-control-label-radio custom-control-label" for="price-2">
+                                        <span>Từ 1 - 2 triệu</span>
+                                    </label>
+                                </div>
+                                <div class="custom-control">
+                                    <input type="radio" class="custom-control-input custom-control-input-radio" name="radio-price" th:checked="${radioPrice=='from2to5' ? 'checked' : 'false'}" value="from2to5" id="price-3" >
+                                    <label class="d-flex align-items-center custom-control-label-radio custom-control-label" for="price-3">
+                                        <span>Từ 2 - 5 triệu</span>
+                                    </label>
+                                </div>
+                                <div class="custom-control">
+                                    <input type="radio" class="custom-control-input custom-control-input-radio" name="radio-price" th:checked="${radioPrice=='from5tomax' ? 'checked' : 'false'}" value="from5tomax" id="price-4" >
+                                    <label class="d-flex align-items-center custom-control-label-radio custom-control-label" for="price-4">
+                                        <span>Trên 5 triệu</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-group-title font-weight-bold">Phân loại theo</div>
+                            <div class="radio-list d-flex flex-column" style="gap: 0.75rem">
+                                <div class="custom-control">
+                                    <input type="radio" class="custom-control-input custom-control-input-radio"  th:checked="${radioSort=='asc' ? 'checked' : 'false'}" value="asc" name="radio-sort" id="sort-1">
+                                    <label class="d-flex align-items-center custom-control-label-radio custom-control-label" for="sort-1">
+                                        <span>Giá - Từ thấp đến cao</span>
+                                    </label>
+                                </div>
+                                <div class="custom-control">
+                                    <input type="radio" class="custom-control-input" th:checked="${radioSort=='desc' ? 'checked' : 'false'}"  value="desc" name="radio-sort" id="sort-2" >
+                                    <label class="d-flex align-items-center custom-control-label-radio custom-control-label" for="sort-2">
+                                        <span>Giá - Từ cao đến thấp</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center" style="padding: 16px; padding-top: 0">
+                            <button type="submit" class="search-btn-submit">Lọc</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="search-content-body">
+                <div th:replace="fragments/listProducts_fragment::listProduct('Kết quả tìm kiếm', ${listProducts})"></div>
+                <div th:replace="fragments :: pagination_search()"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer_fragment :: footer"></div>
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}" ></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        let messageError = [[${messageError}]];
+        let messageSuccess = [[${messageSuccess}]];
+
+        if(messageSuccess) {
+            Swal.fire({
+                title: '',
+                text: messageSuccess,
+                icon: 'success'
+            })
+        }
+        if(messageError ) {
+            Swal.fire({
+                title: '',
+                text: messageError,
+                icon: 'error'
+            })
+        }
+
+
+    })
+</script>
+</body>
+
+</html>
