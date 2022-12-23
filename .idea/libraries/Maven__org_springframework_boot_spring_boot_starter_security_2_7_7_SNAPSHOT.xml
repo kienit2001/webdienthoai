@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework.boot:spring-boot-starter-security:2.7.7-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-security/2.7.7-SNAPSHOT/spring-boot-starter-security-2.7.7-20221222.064631-15.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-security/2.7.7-SNAPSHOT/spring-boot-starter-security-2.7.7-20221222.070537-16.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-security/2.7.7-SNAPSHOT/spring-boot-starter-security-2.7.7-20221222.064631-15-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-security/2.7.7-SNAPSHOT/spring-boot-starter-security-2.7.7-20221222.070537-16-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-security/2.7.7-SNAPSHOT/spring-boot-starter-security-2.7.7-20221222.064631-15-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-security/2.7.7-SNAPSHOT/spring-boot-starter-security-2.7.7-20221222.070537-16-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
