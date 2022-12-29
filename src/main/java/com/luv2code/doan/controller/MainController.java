@@ -27,7 +27,7 @@ import java.util.List;
 
 @Controller
 public class MainController {
-    private final Logger log = LoggerFactory.getLogger(MainController.class);
+    private final Logger  log = LoggerFactory.getLogger(MainController.class);
 
     @Autowired
     private ProductService productService;

@@ -46,10 +46,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .and().csrf().disable().authorizeRequests()
             .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers( "/profile/**", "/checkout/**", "/cart/**").hasAnyAuthority("ROLE_USER")
+                .antMatchers(  "/checkout/**", "/cart/**").hasAnyAuthority("ROLE_USER")
             .antMatchers("/api/**","/webjars/**", "/images/**",
                     "/signup/**", "/verify/**","/auth/**",
-                    "/login/**", "/logout/**","/assets/**", "/css/**","/product/**","/brand/**","/","/js/**"
+                    "/login/**", "/logout/**","/assets/**","/profile/**", "/css/**","/product/**","/brand/**","/","/js/**"
                     ,"/search/**", "/forgot-password/**").permitAll()
             .anyRequest().authenticated()
             .and()
